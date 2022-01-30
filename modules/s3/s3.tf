@@ -1,12 +1,17 @@
 variable "owner" {}
-variable "iam-role-id" {}
-variable "bucket-name" {}
-variable "project-name" {}
+
+variable "iam_role_id" {}
+
+variable "bucket_name" {}
+
+variable "project_name" {}
+
 variable "environment" {}
+
 variable "region" {}
 
-resource "aws_s3_bucket" "s3-bucket" {
-  bucket = var.bucket-name
+resource "aws_s3_bucket" "s3_bucket" {
+  bucket = var.bucket_name
   acl    = "private"
 
   versioning {
@@ -20,12 +25,12 @@ resource "aws_s3_bucket" "s3-bucket" {
 }
 
 
-resource "aws_iam_role_policy" "bucket-policy" {
-  name   = "${var.project-name}-${var.environment}-bucket-policy"
-  role   = var.iam-role-id
+resource "aws_iam_role_policy" "bucket_policy" {
+  name   = "${var.project_name}_${var.environment}_bucket_policy"
+  role   = var.iam_role_id
   policy = <<EOF
   {
-    "Version" : "2021-10-17",
+    "Version" : "2012-10-17",
     "Statement" : [
       {
         "Effect" : "Allow",
@@ -38,12 +43,12 @@ resource "aws_iam_role_policy" "bucket-policy" {
       {
         "Effect" : "Allow",
         "Action" : ["s3:ListBucket"],
-        "Resource" : ["arn:aws:s3:::${aws_s3_bucket.s3-bucket.id}"]
+        "Resource" : ["arn:aws:s3:::${aws_s3_bucket.s3_bucket.id}"]
       },
       {
         "Effect" : "Allow",
         "Action" : "s3:*",
-        "Resource" : ["arn:aws:s3:::${aws_s3_bucket.s3-bucket.id}"]
+        "Resource" : ["arn:aws:s3:::${aws_s3_bucket.s3_bucket.id}"]
       }
     ]
   }
@@ -51,5 +56,5 @@ EOF
 }
 
 output "s3_bucket_id" {
-  value = "${aws_s3_bucket.s3-bucket.id}"
+  value = "${aws_s3_bucket.s3_bucket.id}"
 }
