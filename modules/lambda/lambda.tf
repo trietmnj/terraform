@@ -31,6 +31,7 @@ resource "aws_iam_role_policy" "policy" {
     "Version": "2012-10-17",
     "Statement": [
       {
+        "Effect": "Allow",
         "Action": [
           "logs:CreateLogGroup",
           "logs:CreateLogStream",
@@ -45,6 +46,31 @@ resource "aws_iam_role_policy" "policy" {
           "s3:ListAllMyBuckets"
         ],
         "Resource": "arn:aws:s3:::"
+      },
+      {
+        "Effect": "Allow",
+        "Action": ["s3:ListBucket"],
+        "Resource": ["arn:aws:s3:::${var.bucket_id}"]
+      },
+      {
+        "Effect": "Allow",
+        "Action": [
+          "s3:PutObject",
+          "s3:GetObject",
+          "s3:DeleteObject"
+        ],
+        "Resource": ["arn:aws:s3:::${var.bucket_id}/*"]
+      },
+      {
+         "Effect":"Allow",
+         "Action":[
+            "ec2:CreateNetworkInterface",
+            "ec2:DescribeNetworkInterfaces",
+            "ec2:DeleteNetworkInterface",
+            "ec2:DescribeTags",
+            "ec2:DescribeInstances"
+          ],
+         "Resource":"*"
       }
     ]
   }

@@ -30,7 +30,11 @@ resource "aws_iam_role_policy" "bucket_policy" {
   role   = var.iam_role_id
   policy = <<EOF
   {
+<<<<<<< HEAD
     "Version" : "2012-10-17",
+=======
+    "Version" : "2021_10_17",
+>>>>>>> 262d5016e1499c1839ea3bb8c4be5236849b8d98
     "Statement" : [
       {
         "Effect" : "Allow",
@@ -56,5 +60,9 @@ EOF
 }
 
 output "s3_bucket_id" {
+<<<<<<< HEAD
   value = "${aws_s3_bucket.s3_bucket.id}"
+=======
+  value = aws_s3_bucket.s3_bucket.id
+>>>>>>> 262d5016e1499c1839ea3bb8c4be5236849b8d98
 }
