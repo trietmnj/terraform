@@ -90,6 +90,7 @@ EOF
 }
 
 variable "lambda_policy" {
+  description = "Override policy"
 }
 
 variable "lambda_environment_variables" {
